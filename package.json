@@ -9,7 +9,7 @@
     "start:prod": "export $(xargs < ./.env) && webpack serve --mode production",
     "lint": "eslint \"**/*.{js,jsx}\" -f table",
     "lint:fix": "eslint \"./src/**/*.{js,jsx}\" --fix",
-    "test": "jest",
+    "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "cypress:run:local": "cypress run --config-file cypress/config/local.config.js",
     "cypress:open:local": "cypress open --config-file cypress/config/local.config.js",
