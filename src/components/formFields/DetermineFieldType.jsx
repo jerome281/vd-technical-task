@@ -10,14 +10,21 @@ import {
   FIELD_PHONE,
   FIELD_TEXT,
   FIELD_RADIO,
+  FIELD_CHECKBOX,
   DISPLAY_PASSWORD,
 } from '../../constants/AppConstants';
 import InputConditional from './InputConditional';
 import InputRadio from './InputRadio';
 import InputText from './InputText';
+import InputCheckbox from './InputCheckbox';
 
 const DetailsInput = ({
-  error, fieldName, fieldToReturn, hint, label, linkText,
+  error,
+  fieldName,
+  fieldToReturn,
+  hint,
+  label,
+  linkText,
 }) => {
   /*
    * isOpen needs to be set to state so that it persists
@@ -38,12 +45,21 @@ const DetailsInput = ({
   return (
     <div className="thisApp-grid-row">
       <div className="thisApp-grid-column-one-half">
-        <div className={error ? 'thisApp-form-group thisApp-form-group--error' : 'thisApp-form-group'}>
-          <details className="thisApp-details" data-module="thisApp-details" data-testid="details-component" open={isOpen}>
+        <div
+          className={
+            error
+              ? 'thisApp-form-group thisApp-form-group--error'
+              : 'thisApp-form-group'
+          }
+        >
+          <details
+            className="thisApp-details"
+            data-module="thisApp-details"
+            data-testid="details-component"
+            open={isOpen}
+          >
             <summary className="thisApp-details__summary">
-              <span className="thisApp-details__summary-text">
-                {linkText}
-              </span>
+              <span className="thisApp-details__summary-text">{linkText}</span>
             </summary>
             <div className="thisApp-details__text">
               <label className="thisApp-label" htmlFor={`${fieldName}-input`}>
@@ -65,25 +81,30 @@ const DetailsInput = ({
 };
 
 const GroupedInputs = ({
-  error, fieldName, fieldToReturn, hint, label, legendAsH1,
+  error,
+  fieldName,
+  fieldToReturn,
+  hint,
+  label,
+  legendAsH1,
 }) => (
   <div className="thisApp-grid-row">
     <div className="thisApp-grid-column-full">
-      <div className={error ? 'thisApp-form-group thisApp-form-group--error' : 'thisApp-form-group'}>
+      <div
+        className={
+          error
+            ? 'thisApp-form-group thisApp-form-group--error'
+            : 'thisApp-form-group'
+        }
+      >
         <fieldset className="thisApp-fieldset">
-          {legendAsH1
-            ? (
-              <legend className="thisApp-fieldset__legend thisApp-fieldset__legend--xl">
-                <h1 className="thisApp-fieldset__heading">
-                  {label}
-                </h1>
-              </legend>
-            )
-            : (
-              <legend className="thisApp-fieldset__legend">
-                {label}
-              </legend>
-            )}
+          {legendAsH1 ? (
+            <legend className="thisApp-fieldset__legend thisApp-fieldset__legend--xl">
+              <h1 className="thisApp-fieldset__heading">{label}</h1>
+            </legend>
+          ) : (
+            <legend className="thisApp-fieldset__legend">{label}</legend>
+          )}
           <div id={`${fieldName}-hint`} className="thisApp-hint">
             {hint}
           </div>
@@ -98,12 +119,23 @@ const GroupedInputs = ({
 );
 
 const SingleInput = ({
-  error, children, fieldName, fieldToReturn, hint, label,
+  error,
+  children,
+  fieldName,
+  fieldToReturn,
+  hint,
+  label,
 }) => (
   <div className="thisApp-grid-row">
     {children || null}
     <div className="thisApp-grid-column-one-half">
-      <div className={error ? 'thisApp-form-group thisApp-form-group--error' : 'thisApp-form-group'}>
+      <div
+        className={
+          error
+            ? 'thisApp-form-group thisApp-form-group--error'
+            : 'thisApp-form-group'
+        }
+      >
         <label className="thisApp-label" htmlFor={`${fieldName}-input`}>
           {label}
         </label>
@@ -120,124 +152,142 @@ const SingleInput = ({
 );
 
 const determineFieldType = ({
-  allErrors, children, error, fieldDetails, parentHandleChange,
+  allErrors,
+  children,
+  error,
+  fieldDetails,
+  parentHandleChange,
 }) => {
-  const displayType = fieldDetails.displayType ? fieldDetails.displayType : DISPLAY_SINGLE;
+  const displayType = fieldDetails.displayType
+    ? fieldDetails.displayType
+    : DISPLAY_SINGLE;
   let fieldToReturn;
   switch (fieldDetails.type) {
-    case FIELD_CONDITIONAL: fieldToReturn = (
-      <InputConditional
-        errors={allErrors} // allows us to add the error handling logic for conditional fields only on those fields
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-      />
-    );
+    case FIELD_CONDITIONAL:
+      fieldToReturn = (
+        <InputConditional
+          errors={allErrors} // allows us to add the error handling logic for conditional fields only on those fields
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+        />
+      );
       break;
 
-    case FIELD_EMAIL: fieldToReturn = (
-      <InputText
-        autoComplete="email"
-        error={error} // if error true, error styling applied to input
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-        type="email"
-      />
-    );
+    case FIELD_EMAIL:
+      fieldToReturn = (
+        <InputText
+          autoComplete="email"
+          error={error} // if error true, error styling applied to input
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+          type="email"
+        />
+      );
       break;
 
-    case FIELD_PASSWORD: fieldToReturn = (
-      <InputText
-        error={error}
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-        type="password"
-        dataTestid={`${fieldDetails.fieldName}-passwordField`}
-      />
-    );
+    case FIELD_PASSWORD:
+      fieldToReturn = (
+        <InputText
+          error={error}
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+          type="password"
+          dataTestid={`${fieldDetails.fieldName}-passwordField`}
+        />
+      );
       break;
 
-    case FIELD_PHONE: fieldToReturn = (
-      <InputText
-        autoComplete="tel"
-        error={error} // if error true, error styling applied to input
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-        type="tel"
-      />
-    );
+    case FIELD_PHONE:
+      fieldToReturn = (
+        <InputText
+          autoComplete="tel"
+          error={error} // if error true, error styling applied to input
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+          type="tel"
+        />
+      );
       break;
 
-    case FIELD_RADIO: fieldToReturn = (
-      <InputRadio
-        // there is no input level error styling on a radio button so we do not pass error down here
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-        type="radio"
-      />
-    );
+    case FIELD_RADIO:
+      fieldToReturn = (
+        <InputRadio
+          // there is no input level error styling on a radio button so we do not pass error down here
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+          type="radio"
+        />
+      );
       break;
 
-    case FIELD_TEXT: fieldToReturn = (
-      <InputText
-        error={error}
-        fieldDetails={fieldDetails}
-        handleChange={parentHandleChange}
-        type="text"
-      />
-    );
+    case FIELD_CHECKBOX:
+      fieldToReturn = (
+        <InputCheckbox
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+        />
+      );
       break;
 
-    default: fieldToReturn = null;
+    case FIELD_TEXT:
+      fieldToReturn = (
+        <InputText
+          error={error}
+          fieldDetails={fieldDetails}
+          handleChange={parentHandleChange}
+          type="text"
+        />
+      );
+      break;
+
+    default:
+      fieldToReturn = null;
   }
 
   return (
     <>
-      {displayType === DISPLAY_DETAILS
-        && (
-          <DetailsInput
-            allErrors={allErrors}
-            error={error}
-            fieldName={fieldDetails.fieldName}
-            fieldToReturn={fieldToReturn}
-            hint={fieldDetails.hint}
-            label={fieldDetails.label}
-            linkText={fieldDetails.linkText}
-          />
-        )}
-      {displayType === DISPLAY_GROUPED
-        && (
-          <GroupedInputs
-            allErrors={allErrors}
-            error={error}
-            fieldName={fieldDetails.fieldName}
-            fieldToReturn={fieldToReturn}
-            hint={fieldDetails.hint}
-            label={fieldDetails.label}
-            legendAsH1={fieldDetails.labelAsH1}
-          />
-        )}
-      {displayType === DISPLAY_SINGLE
-        && (
-          <SingleInput
-            error={error}
-            fieldName={fieldDetails.fieldName}
-            fieldToReturn={fieldToReturn}
-            hint={fieldDetails.hint}
-            label={fieldDetails.label}
-          />
-        )}
-      {displayType === DISPLAY_PASSWORD
-        && (
-          <SingleInput
-            error={error}
-            fieldName={fieldDetails.fieldName}
-            fieldToReturn={fieldToReturn}
-            hint={fieldDetails.hint}
-            label={fieldDetails.label}
-          >
-            {children}
-          </SingleInput>
-        )}
+      {displayType === DISPLAY_DETAILS && (
+        <DetailsInput
+          allErrors={allErrors}
+          error={error}
+          fieldName={fieldDetails.fieldName}
+          fieldToReturn={fieldToReturn}
+          hint={fieldDetails.hint}
+          label={fieldDetails.label}
+          linkText={fieldDetails.linkText}
+        />
+      )}
+      {displayType === DISPLAY_GROUPED && (
+        <GroupedInputs
+          allErrors={allErrors}
+          error={error}
+          fieldName={fieldDetails.fieldName}
+          fieldToReturn={fieldToReturn}
+          hint={fieldDetails.hint}
+          label={fieldDetails.label}
+          legendAsH1={fieldDetails.labelAsH1}
+        />
+      )}
+      {displayType === DISPLAY_SINGLE && (
+        <SingleInput
+          error={error}
+          fieldName={fieldDetails.fieldName}
+          fieldToReturn={fieldToReturn}
+          hint={fieldDetails.hint}
+          label={fieldDetails.label}
+        />
+      )}
+      {displayType === DISPLAY_PASSWORD && (
+        <SingleInput
+          error={error}
+          fieldName={fieldDetails.fieldName}
+          fieldToReturn={fieldToReturn}
+          hint={fieldDetails.hint}
+          label={fieldDetails.label}
+        >
+          {children}
+        </SingleInput>
+      )}
     </>
   );
 };
@@ -256,7 +306,7 @@ determineFieldType.propTypes = {
       linkText: PropTypes.string,
       type: PropTypes.string.isRequired,
       value: PropTypes.string,
-    }),
+    })
   ),
   parentHandleChange: PropTypes.func.isRequired,
 };

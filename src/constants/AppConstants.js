@@ -21,6 +21,7 @@ export const FIELD_PASSWORD = 'password';
 export const FIELD_PHONE = 'tel';
 export const FIELD_TEXT = 'text';
 export const FIELD_RADIO = 'radio';
+export const FIELD_CHECKBOX = 'checkbox';
 export const AUTOCOMPLETE_DIALCODE = 'dialCode';
 // Forms: states
 export const CHECKED_TRUE = true;
