@@ -12,18 +12,20 @@ This how to uses the date fieldset as an example
 ### 1. Create your input component
 
 - Create a new file in `src/components/formFields/`
-- Title it `Input` followed by the type of input e.g. `InputRadio.jsx` or `InputAddress.jsx`
+- Title it `Input` followed by the type of input e.g. `InputRadio.jsx`, `InputAddress.jsx` or `InputCheckbox.jsx`
 
 In this example we created `InputDate.jsx`
 
 Setup your PropTypes
 
-Some prop types may not be required for this type of field, e.g. 
+Some prop types may not be required for this type of field, e.g.
+
 - inputMode is used for `InputDate.jsx` but not other fields.
 - autocomplete and data-test-id is needed for `InputText.jsx`
 - type is also needed for `InputText.jsx` as a text input could be a type of email, password, or regular text. But it is not needed for `InputRadio` as a radio input will always be radio.
 
 Example for Date fields (a grouped field)
+
 ```javascript
 InputDate.propTypes = {
   fieldDetails: PropTypes.shape({
@@ -43,7 +45,10 @@ const InputDate = ({ fieldDetails, handleChange }) => {
     <div className="thisApp-date-input" id={`${fieldDetails.fieldName}-input`}>
       <div className="thisApp-date-input__item">
         <div className="thisApp-form-group">
-          <label className="thisApp-label thisApp-date-input__label" htmlFor={`${fieldDetails.fieldName}-input-day`}>
+          <label
+            className="thisApp-label thisApp-date-input__label"
+            htmlFor={`${fieldDetails.fieldName}-input-day`}
+          >
             Day
           </label>
           <input
@@ -53,13 +58,18 @@ const InputDate = ({ fieldDetails, handleChange }) => {
             type="text"
             inputMode="numeric"
             onChange={handleChange}
-            aria-describedby={fieldDetails.hint ? `${fieldDetails.fieldName}-hint` : null}
+            aria-describedby={
+              fieldDetails.hint ? `${fieldDetails.fieldName}-hint` : null
+            }
           />
         </div>
       </div>
       <div className="thisApp-date-input__item">
         <div className="thisApp-form-group">
-          <label className="thisApp-label thisApp-date-input__label" htmlFor={`${fieldDetails.fieldName}-input-month`}>
+          <label
+            className="thisApp-label thisApp-date-input__label"
+            htmlFor={`${fieldDetails.fieldName}-input-month`}
+          >
             Month
           </label>
           <input
@@ -74,7 +84,10 @@ const InputDate = ({ fieldDetails, handleChange }) => {
       </div>
       <div className="thisApp-date-input__item">
         <div className="thisApp-form-group">
-          <label className="thisApp-label thisApp-date-input__label" htmlFor={`${fieldDetails.fieldName}-input-year`}>
+          <label
+            className="thisApp-label thisApp-date-input__label"
+            htmlFor={`${fieldDetails.fieldName}-input-year`}
+          >
             Year
           </label>
           <input
